@@ -599,3 +599,84 @@ td { color: #ddd; }
     transform: scale(1.05);
     background: rgba(78, 205, 196, 1);
 }
+
+/* Gap popup (options appear above the gap) */
+.gap-wrapper {
+    position: relative;
+    display: inline-block;
+}
+.gap-popup {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a2e;
+    border: 1px solid #4ecdc4;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 50;
+    min-width: 180px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    animation: popIn 0.15s ease;
+}
+.gap-popup::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: #4ecdc4;
+}
+.gap-popup-label {
+    color: #ffd700;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+}
+.gap-popup-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.15s;
+    text-align: left;
+    min-height: 42px;
+}
+.gap-popup-btn:hover {
+    background: rgba(78, 205, 196, 0.2);
+    border-color: #4ecdc4;
+}
+.gap-popup-btn.selected {
+    background: rgba(78, 205, 196, 0.3);
+    border-color: #4ecdc4;
+    color: #4ecdc4;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Mobile: popup takes more width */
+@media (max-width: 600px) {
+    .gap-popup {
+        min-width: 160px;
+        padding: 8px;
+        left: 0;
+        transform: translateX(-20%);
+    }
+    .gap-popup::after {
+        left: 30%;
+    }
+    .gap-popup-btn {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+}

@@ -152,7 +152,25 @@ function renderTeil1() {
         const answer = userAnswers[num] || '';
         const filledClass = answer ? 'filled' : '';
         const activeClass = activeGap == num ? 'active-gap' : '';
-        return `<span class="gap ${filledClass} ${activeClass}" data-gap="${num}" onclick="selectGapTeil1(${num})"><span class="gap-number">${num}</span>${answer || '___'}</span>`;
+        
+        // Build inline popup for this gap
+        let popupHtml = '';
+        if (activeGap == num) {
+            const gap = exercise.gaps.find(g => g.number == num);
+            if (gap) {
+                popupHtml = `<span class="gap-popup" onclick="event.stopPropagation()">
+                    <span class="gap-popup-label">Gap ${num}:</span>
+                    ${gap.options.map(opt => {
+                        const letter = opt.charAt(0);
+                        const text = opt.substring(3).trim();
+                        const isSelected = userAnswers[num] === text;
+                        return `<button class="gap-popup-btn ${isSelected ? 'selected' : ''}" onclick="event.stopPropagation(); selectAnswerTeil1(${num}, '${letter}', '${text.replace(/'/g, "\\'")}')">${opt}</button>`;
+                    }).join('')}
+                </span>`;
+            }
+        }
+        
+        return `<span class="gap-wrapper"><span class="gap ${filledClass} ${activeClass}" data-gap="${num}" onclick="selectGapTeil1(${num})"><span class="gap-number">${num}</span>${answer || '___'}</span>${popupHtml}</span>`;
     });
     
     container.innerHTML = `
@@ -165,22 +183,9 @@ function renderTeil1() {
             <div class="progress-bar-fill" style="width: ${progressPct}%"></div>
         </div>
         
-        <div class="exercise-instruction">👆 Tap a gap in the text → then pick your answer below</div>
+        <div class="exercise-instruction">👆 Tap a gap to see choices</div>
 
         <div class="exercise-text">${textHtml.replace(/\n/g, '<br>')}</div>
-        
-        <div class="options-container" id="options-panel">
-            ${activeGap ? `
-                <div class="option-group">
-                    <div class="option-group-label">Gap ${activeGap}:</div>
-                    ${exercise.gaps.find(g => g.number == activeGap)?.options.map(opt => {
-                        const letter = opt.charAt(0);
-                        const isSelected = userAnswers[activeGap] === opt.substring(3).trim();
-                        return `<button class="option-btn ${isSelected ? 'selected' : ''}" onclick="selectAnswerTeil1(${activeGap}, '${letter}', '${opt.substring(3).trim().replace(/'/g, "\\'")}')">${opt}</button>`;
-                    }).join('') || ''}
-                </div>
-            ` : `<p style="color: #888; text-align: center;">← Tap a numbered gap above to see choices</p>`}
-        </div>
         
         ${filledCount >= totalGaps ? `<button class="submit-btn" onclick="checkAnswers()">✓ Check Answers</button>` : 
          filledCount > 0 ? `<button class="submit-btn" style="opacity: 0.7;" onclick="checkAnswers()">✓ Check Answers (${filledCount}/${totalGaps} filled)</button>` : ''}
@@ -190,11 +195,6 @@ function renderTeil1() {
 function selectGapTeil1(num) {
     activeGap = num;
     renderTeil1();
-    // Scroll to options panel
-    setTimeout(() => {
-        const panel = document.getElementById('options-panel');
-        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
 }
 
 function selectAnswerTeil1(gapNum, letter, text) {
@@ -206,14 +206,6 @@ function selectAnswerTeil1(gapNum, letter, text) {
     activeGap = nextGap ? nextGap.number : null;
     
     renderTeil1();
-    
-    // Scroll to next gap if exists
-    if (nextGap) {
-        setTimeout(() => {
-            const nextEl = document.querySelector(`[data-gap="${nextGap.number}"]`);
-            if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 150);
-    }
 }
 
 // ============================================================
