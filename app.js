@@ -158,7 +158,7 @@ function renderTeil1() {
         if (activeGap == num) {
             const gap = exercise.gaps.find(g => g.number == num);
             if (gap) {
-                popupHtml = `<span class="gap-popup" onclick="event.stopPropagation()">
+                popupHtml = `<span class="gap-popup-overlay" onclick="activeGap=null; renderTeil1();"></span><span class="gap-popup" onclick="event.stopPropagation()">
                     <span class="gap-popup-label">Gap ${num}:</span>
                     ${gap.options.map(opt => {
                         const letter = opt.charAt(0);
@@ -199,12 +199,7 @@ function selectGapTeil1(num) {
 
 function selectAnswerTeil1(gapNum, letter, text) {
     userAnswers[gapNum] = text;
-    
-    // Find next empty gap
-    const exercise = teil1Exercises[currentExerciseIndex];
-    const nextGap = exercise.gaps.find(g => g.number > gapNum && !userAnswers[g.number]);
-    activeGap = nextGap ? nextGap.number : null;
-    
+    activeGap = null; // Close popup after selecting
     renderTeil1();
 }
 
@@ -426,8 +421,15 @@ function clearResultsAndRetry() {
 document.addEventListener('DOMContentLoaded', () => {
     showScreen('menu');
     initBackToTop();
-    // Init collapsible after a brief delay to ensure DOM is ready
     setTimeout(initCollapsible, 100);
+    
+    // Close gap popup when clicking outside
+    document.addEventListener('click', (e) => {
+        if (activeGap && !e.target.closest('.gap-wrapper')) {
+            activeGap = null;
+            if (currentExerciseType === 'teil1') renderTeil1();
+        }
+    });
 });
 
 // Re-init collapsible when showing grammar/tips screens

@@ -477,17 +477,18 @@ td { color: #ddd; }
 
 /* ===== MOBILE ===== */
 @media (max-width: 600px) {
-    .app-container { padding: 12px; }
+    .app-container { padding: 12px; padding-bottom: 100px; }
     h1 { font-size: 1.7rem; margin-top: 16px; }
-    h2 { font-size: 1.3rem; }
-    .subtitle { font-size: 1rem; margin-bottom: 20px; }
-    .menu-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .card { padding: 18px 12px; }
-    .card-icon { font-size: 2rem; }
-    .card h3 { font-size: 0.95rem; }
+    h2 { font-size: 1.2rem; }
+    .subtitle { font-size: 0.95rem; margin-bottom: 20px; }
+    .menu-cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card { padding: 16px 10px; }
+    .card-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .card h3 { font-size: 0.9rem; }
+    .card p { font-size: 0.8rem; }
     
-    .exercise-text { padding: 16px; font-size: 0.95rem; line-height: 1.9; }
-    .gap { min-width: auto; padding: 3px 8px; font-size: 0.9rem; }
+    .exercise-text { padding: 14px; font-size: 0.95rem; line-height: 2.2; }
+    .gap { min-width: auto; padding: 4px 8px; font-size: 0.85rem; }
     
     .word-bank {
         position: sticky;
@@ -496,25 +497,47 @@ td { color: #ddd; }
         background: rgba(26, 26, 46, 0.97);
         backdrop-filter: blur(10px);
         border-radius: 0 0 12px 12px;
-        max-height: 35vh;
+        max-height: 30vh;
         overflow-y: auto;
         margin-left: -12px;
         margin-right: -12px;
-        border-radius: 0;
         padding: 12px;
+        border-radius: 0;
     }
-    .word-chip { padding: 10px 14px; font-size: 0.85rem; }
-    .option-btn { padding: 12px 16px; width: 100%; text-align: left; margin: 3px 0; }
+    .word-chip { padding: 10px 14px; font-size: 0.85rem; min-height: 42px; }
+    .option-btn { padding: 12px 16px; width: 100%; text-align: left; margin: 3px 0; min-height: 48px; }
     
-    table { font-size: 0.8rem; }
-    th, td { padding: 6px 5px; }
+    table { font-size: 0.78rem; }
+    th, td { padding: 6px 4px; }
     
-    .tipp-card, .grammar-box { padding: 16px; }
+    .tipp-card, .grammar-box { padding: 14px; }
     .trick { padding: 12px; }
-    .trick strong { font-size: 0.9rem; }
-    .trick p { font-size: 0.85rem; }
+    .trick strong { font-size: 0.88rem; }
+    .trick p, .trick ul li { font-size: 0.83rem; }
+    .hint-box p { font-size: 0.8rem; }
     
-    .back-btn { padding: 8px 14px; font-size: 0.9rem; }
+    .back-btn { padding: 8px 12px; font-size: 0.85rem; }
+    .submit-btn { padding: 14px 28px; font-size: 1rem; width: 100%; }
+    .try-again-btn { width: 100%; padding: 14px; }
+    
+    .exercise-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .exercise-header h2 { font-size: 1.1rem; }
+    .exercise-instruction { font-size: 0.85rem; padding: 10px; }
+    
+    .toc-links { gap: 5px; }
+    .toc-link { padding: 5px 9px; font-size: 0.75rem; }
+    
+    .result-item { padding: 12px; gap: 10px; flex-direction: column; align-items: flex-start; }
+    .result-icon { font-size: 1.1rem; }
+    .result-sentence { font-size: 0.82rem; }
+    .result-explanation { font-size: 0.8rem; }
+    .pattern-link { font-size: 0.75rem; padding: 3px 8px; }
+    .pattern-popup { font-size: 0.78rem; padding: 8px 10px; }
+    
+    .score-circle { width: 110px; height: 110px; font-size: 1.8rem; }
+    
+    .back-to-top { width: 40px; height: 40px; font-size: 1rem; bottom: 16px; right: 16px; }
+    .back-to-results { font-size: 0.8rem; padding: 8px 12px; bottom: 16px; left: 12px; }
 }
 
 /* Pattern link in results */
@@ -667,16 +690,50 @@ td { color: #ddd; }
 /* Mobile: popup takes more width */
 @media (max-width: 600px) {
     .gap-popup {
-        min-width: 160px;
-        padding: 8px;
+        position: fixed;
+        bottom: 0;
         left: 0;
-        transform: translateX(-20%);
+        right: 0;
+        top: auto;
+        transform: none;
+        border-radius: 16px 16px 0 0;
+        min-width: 100%;
+        padding: 16px;
+        gap: 8px;
+        animation: slideUp 0.2s ease;
     }
     .gap-popup::after {
-        left: 30%;
+        display: none;
     }
     .gap-popup-btn {
-        padding: 10px 12px;
+        padding: 14px 16px;
+        font-size: 1rem;
+        min-height: 48px;
+    }
+    .gap-popup-label {
         font-size: 0.9rem;
+        padding-bottom: 4px;
+    }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(100%); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Overlay behind popup on mobile for easy dismiss */
+.gap-popup-overlay {
+    display: none;
+}
+@media (max-width: 600px) {
+    .gap-popup-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 49;
     }
 }
