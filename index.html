@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprachbausteine B1 Trainer – Telc Prüfung</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Landing / Menu -->
+        <section id="menu" class="screen active">
+            <h1>🇩🇪 Sprachbausteine B1</h1>
+            <p class="subtitle">Telc Exam Trainer – Pass with Confidence</p>
+            
+            <div class="menu-cards">
+                <div class="card highlighted" onclick="showScreen('tipps')">
+                    <span class="card-icon">💡</span>
+                    <h3>How to PASS</h3>
+                    <p>Strategy & tricks</p>
+                    <span class="card-badge">START HERE</span>
+                </div>
+                <div class="card" onclick="showScreen('grammatik')">
+                    <span class="card-icon">📚</span>
+                    <h3>Grammar Cheat Sheet</h3>
+                    <p>15 patterns that repeat</p>
+                </div>
+                <div class="card" onclick="startExercise('teil1')">
+                    <span class="card-icon">✏️</span>
+                    <h3>Practice Teil 1</h3>
+                    <p>Letter + a/b/c choices</p>
+                </div>
+                <div class="card" onclick="startExercise('teil2')">
+                    <span class="card-icon">📝</span>
+                    <h3>Practice Teil 2</h3>
+                    <p>Text + word bank</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tipps Screen -->
+        <section id="tipps" class="screen">
+            <button class="back-btn" onclick="showScreen('menu')">← Menu</button>
+            <h2>💡 How to PASS Sprachbausteine</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">Based on analysis of 80 gaps from 4 real Klett Modeltests. Proven strategies.</p>
+
+            <div class="tipps-container">
+                <div class="tipp-card">
+                    <h3>⚡ The Golden Rules</h3>
+                    <div class="card-content">
+                    <div class="trick">
+                        <strong>Rule 1: NEVER leave a gap empty!</strong>
+                        <p>No minus points. Always guess. In Teil 1 you have 33% chance even guessing randomly!<br><span style="color:#ff8c00">🇧🇩 কখনো খালি রেখো না! কোনো minus point নেই। Teil 1-এ random guess-এও ৩৩% chance!</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Rule 2: You only need 60% (= 12 out of 20 correct)</strong>
+                        <p>That's just 6/10 per Teil. You do NOT need perfection.<br><span style="color:#ff8c00">🇧🇩 মাত্র ৬০% লাগে (২০-এর মধ্যে ১২টা)। Perfect হতে হবে না!</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Rule 3: Max 40 seconds per gap — then move on</strong>
+                        <p>Stuck? Mark best guess, come back later. Don't lose easy points elsewhere.<br><span style="color:#ff8c00">🇧🇩 একটা gap-এ ৪০ সেকেন্ডের বেশি না! আটকে গেলে best guess দিয়ে পরেরটায় যাও।</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Rule 4: Just 2 patterns cover 30% of ALL gaps!</strong>
+                        <p>Connectors + Verb Forms alone = 24 out of 80 answers. Learn these two well → already halfway to passing.<br><span style="color:#ff8c00">🇧🇩 শুধু Connectors + Verb Forms = ৩০% উত্তর! এই দুটো ভালো করলেই অর্ধেক পাস!</span></p>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="tipp-card">
+                    <h3>🏆 What Actually Gets Tested (real data from 80 gaps)</h3>
+                    <div class="card-content">
+                    <div class="trick">
+                        <strong>Frequency ranking:</strong>
+                        <p></p>
+                        <table>
+                            <tr><th>Pattern</th><th>Frequency</th><th>Priority</th></tr>
+                            <tr><td>Connectors & Word Order</td><td>15%</td><td>🔴 MUST</td></tr>
+                            <tr><td>Verb Forms</td><td>15%</td><td>🔴 MUST</td></tr>
+                            <tr><td>Articles + Case</td><td>10%</td><td>🔴 MUST</td></tr>
+                            <tr><td>Pronouns (mir/dir)</td><td>9%</td><td>🟡 Important</td></tr>
+                            <tr><td>Verb + Preposition</td><td>9%</td><td>🟡 Important</td></tr>
+                            <tr><td>Logical Connectors</td><td>9%</td><td>🟡 Important</td></tr>
+                            <tr><td>Time Prepositions</td><td>7.5%</td><td>🟡 Important</td></tr>
+                            <tr><td>Simple Adverbs</td><td>7.5%</td><td>🟡 Important</td></tr>
+                            <tr><td>Comparatives/Superlatives</td><td>5%</td><td>🟢 Helpful</td></tr>
+                            <tr><td>Relative Clauses</td><td>4%</td><td>🟢 Helpful</td></tr>
+                            <tr><td>Konjunktiv II</td><td>4%</td><td>🟢 Helpful</td></tr>
+                            <tr><td>Negation (kein/nicht)</td><td>0%</td><td>⚪ Skip</td></tr>
+                        </table>
+                    </div>
+                    <div class="hint-box">
+                        <h4>🎯 Study smart:</h4>
+                        <p>Top 5 patterns alone = 58% of all gaps. Master those 5 → you pass!</p>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="tipp-card">
+                    <h3>✏️ Teil 1: 3 Tricks That Solve Most Gaps</h3>
+                    <div class="card-content">
+                    <div class="trick">
+                        <strong>Trick 1: VERB POSITION (solves 3-4 gaps per exam!)</strong>
+                        <p>Where is the verb in the clause after the gap?<br><br>
+                        🔵 Verb at the <strong>END</strong> → Nebensatz connector:<br>
+                        <em>weil, dass, ob, wenn, als, obwohl, damit, sobald</em><br><br>
+                        🟢 Verb <strong>right after</strong> gap → Adverb connector:<br>
+                        <em>deshalb, trotzdem, außerdem, dann</em><br><br>
+                        🟡 Verb in <strong>position 2</strong> (normal) →<br>
+                        <em>und, aber, oder, denn</em><br><br>
+                        <span style="color:#ff8c00">🇧🇩 Gap-এর পর verb কোথায়?<br>
+                        🔵 Verb শেষে → weil/dass/ob/wenn/obwohl<br>
+                        🟢 Verb gap-এর ঠিক পরে → deshalb/trotzdem<br>
+                        🟡 Verb স্বাভাবিক জায়গায় → und/aber/oder/denn</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Trick 2: DATIV DETECTION (solves pronoun gaps)</strong>
+                        <p>Options have mir/mich or dir/dich? Check for Dativ triggers:<br><br>
+                        ✅ Dativ verbs: <strong>gefallen, helfen, schreiben, geben, schicken</strong><br>
+                        ✅ Dativ prepositions: <strong>mit, bei, zu, von, seit, nach, aus</strong><br><br>
+                        Trigger found → pick <strong>mir/dir</strong><br>
+                        No trigger → pick <strong>mich/dich</strong><br><br>
+                        <span style="color:#ff8c00">🇧🇩 mir/mich বা dir/dich দেখলে চেক করো: Dativ verb আছে (gefallen/helfen/schreiben)? বা Dativ preposition আছে (mit/bei/zu)? থাকলে → mir/dir। না থাকলে → mich/dich।</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Trick 3: DEGREE FORMS (-er = als, so = wie, am = -sten)</strong>
+                        <p>• See "-er" form → answer is <strong>als</strong><br>
+                        • See "so..._" → answer is <strong>wie</strong> + Grundform<br>
+                        • See "am _" → pick the <strong>-sten</strong> form<br>
+                        • See "_ genug" → always <strong>Grundform</strong><br><br>
+                        <span style="color:#ff8c00">🇧🇩 • Comparative (-er) দেখলে → als<br>• "so...___" দেখলে → wie + মূল রূপ<br>• "am ___" দেখলে → -sten form<br>• "___ genug" → সবসময় মূল রূপ</span></p>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="tipp-card">
+                    <h3>📝 Teil 2: 4 Tricks for the Word Bank</h3>
+                    <div class="card-content">
+                    <div class="trick">
+                        <strong>Trick 1: 3-Round Method</strong>
+                        <p><strong>Round 1:</strong> Fill the obvious ones (fixed phrases, clear grammar)<br>
+                        <strong>Round 2:</strong> Cross out used words, fewer options now<br>
+                        <strong>Round 3:</strong> Match remaining words by TYPE<br><br>
+                        <span style="color:#ff8c00">🇧🇩 ৩ রাউন্ড পদ্ধতি:<br>১) প্রথমে সহজগুলো পূরণ করো<br>২) ব্যবহৃত শব্দ কেটে দাও<br>৩) বাকিগুলোর word type মিলাও</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Trick 2: Word Type Detection</strong>
+                        <p>• Gap + noun → Article/Possessive (IHR, UNSEREN, EINEN)<br>
+                        • Gap between sentences → Connector (DESHALB, DENN, ABER)<br>
+                        • "sich/ich" + gap + Infinitiv → Modal (MÖCHTE, WÜRDE, KÖNNTE)<br>
+                        • Verb + "über/auf" → dar-form (DARÜBER, DAFÜR)<br>
+                        • Nothing grammar-related → Adverb (AUCH, GERN, NUR, DORT)<br><br>
+                        <span style="color:#ff8c00">🇧🇩 Gap-এর আশপাশ দেখো কী ধরনের শব্দ লাগবে:<br>• Gap + noun → Article (IHR, EINEN)<br>• দুই বাক্যের মাঝে → Connector (DESHALB, DENN)<br>• কোনো grammar দরকার নেই → Adverb (AUCH, GERN, NUR)</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Trick 3: Fixed Phrases = FREE Points</strong>
+                        <p>From your actual exams:<br>
+                        • "<strong>AUF</strong> Ihre Antwort freue ich mich"<br>
+                        • "<strong>VOM</strong> 1. bis zum 14. September"<br>
+                        • "<strong>IM</strong> Internet gelesen"<br>
+                        • "informieren Sie uns <strong>DARÜBER</strong>"<br>
+                        • "<strong>DESHALB</strong> schreibe ich diese E-Mail"<br><br>
+                        <span style="color:#ff8c00">🇧🇩 এই phrases গুলো মুখস্থ করো — প্রতি exam-এ ২-৩টা free marks!</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Trick 4: Adverbs Fill the Last Gaps</strong>
+                        <p>After grammar gaps are done, leftover words like AUCH, GERN, SCHON, NUR, DORT, GANZ just complete the meaning. No grammar needed — just ask "what makes sense here?"<br><br>
+                        <span style="color:#ff8c00">🇧🇩 Grammar gap-গুলো করার পর বাকি শব্দগুলো (AUCH, GERN, NUR, DORT) শুধু অর্থ মেলাও! Grammar লাগে না — শুধু ভাবো "কোনটা অর্থ করে?"</span></p>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="tipp-card">
+                    <h3>🧠 Exam Day: Quick Decision Flowchart</h3>
+                    <div class="card-content">
+                    <div class="trick">
+                        <strong>For every gap, ask in this order:</strong>
+                        <p>1. Formal or informal? (Sehr geehrte = Sie/Ihnen | Liebe = du/dir)<br>
+                        2. Where is the verb? (End = weil/dass/ob | After gap = deshalb | Normal = denn/aber)<br>
+                        3. Dativ trigger? (mit/bei/zu + helfen/gefallen → mir/dir)<br>
+                        4. Comparative? (-er = als | so...= wie | am = -sten)<br>
+                        5. Verb needs preposition? (freuen auf → darauf)<br>
+                        6. None of above? → Simple meaning-word (adverb)<br><br>
+                        <span style="color:#ff8c00">🇧🇩 প্রতিটা gap-এ এই ক্রমে ভাবো:<br>
+                        ১. Formal নাকি informal?<br>
+                        ২. Verb কোথায়? (শেষে/gap-এর পরে/স্বাভাবিক)<br>
+                        ৩. Dativ trigger আছে?<br>
+                        ৪. Comparative আছে?<br>
+                        ৫. Verb+Preposition combo?<br>
+                        ৬. কিছু না → সাধারণ adverb!</span></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Last resort: Read it in your head!</strong>
+                        <p>Your ear often "knows" the right answer. If one option sounds natural → trust it. Never change your first answer unless you find a clear grammar reason.<br><br>
+                        <span style="color:#ff8c00">🇧🇩 শেষ উপায়: মনে মনে পড়ো! তোমার কান প্রায়ই সঠিক উত্তর "জানে"। যেটা স্বাভাবিক শোনায় সেটাই দাও। প্রথম উত্তর পাল্টাবে না — শুধু clear grammar reason থাকলে!</span></p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grammatik Screen – Complete 15 Patterns Cheat Sheet -->
+        <section id="grammatik" class="screen">
+            <button class="back-btn" onclick="showScreen('menu')">← Menu</button>
+            <h2>📚 The 15 Patterns That Always Appear</h2>
+            <p style="color: #aaa; margin-bottom: 15px;">Same patterns repeat every exam. Master these = pass.</p>
+            
+            <div class="toc">
+                <h4>Jump to:</h4>
+                <div class="toc-links">
+                    <a class="toc-link" onclick="document.getElementById('p1').scrollIntoView({behavior:'smooth'})">1 Cases</a>
+                    <a class="toc-link" onclick="document.getElementById('p2').scrollIntoView({behavior:'smooth'})">2 Time</a>
+                    <a class="toc-link" onclick="document.getElementById('p3').scrollIntoView({behavior:'smooth'})">3 Verbs</a>
+                    <a class="toc-link" onclick="document.getElementById('p4').scrollIntoView({behavior:'smooth'})">4 Connectors</a>
+                    <a class="toc-link" onclick="document.getElementById('p5').scrollIntoView({behavior:'smooth'})">5 Pronouns</a>
+                    <a class="toc-link" onclick="document.getElementById('p6').scrollIntoView({behavior:'smooth'})">6 Adjective</a>
+                    <a class="toc-link" onclick="document.getElementById('p7').scrollIntoView({behavior:'smooth'})">7 Negation</a>
+                    <a class="toc-link" onclick="document.getElementById('p8').scrollIntoView({behavior:'smooth'})">8 als/wie</a>
+                    <a class="toc-link" onclick="document.getElementById('p9').scrollIntoView({behavior:'smooth'})">9 Konjunktiv</a>
+                    <a class="toc-link" onclick="document.getElementById('p10').scrollIntoView({behavior:'smooth'})">10 zu+Inf</a>
+                    <a class="toc-link" onclick="document.getElementById('p11').scrollIntoView({behavior:'smooth'})">11 Relative</a>
+                    <a class="toc-link" onclick="document.getElementById('p12').scrollIntoView({behavior:'smooth'})">12 Verb+Prep</a>
+                    <a class="toc-link" onclick="document.getElementById('p13').scrollIntoView({behavior:'smooth'})">13 Phrases</a>
+                    <a class="toc-link" onclick="document.getElementById('p14').scrollIntoView({behavior:'smooth'})">14 Logic</a>
+                    <a class="toc-link" onclick="document.getElementById('p15').scrollIntoView({behavior:'smooth'})">15 Register</a>
+                    <a class="toc-link" onclick="document.getElementById('p16').scrollIntoView({behavior:'smooth'})">16 Adverbs</a>
+                    <a class="toc-link" onclick="document.getElementById('bonus').scrollIntoView({behavior:'smooth'})">🔥 Pairs</a>
+                    <a class="toc-link" onclick="document.getElementById('method').scrollIntoView({behavior:'smooth'})">🏆 Method</a>
+                </div>
+            </div>
+            
+            <div class="grammatik-container">
+
+                <div class="grammar-box" style="border: 2px solid #ffd700;">
+                    <h3>⚡ TEIL 1: The 11 Patterns (80% of all gaps!)</h3>
+                    <p style="color: #ccc;">Master these 11 things and Teil 1 is basically solved. They cover the vast majority of what appears.</p>
+                </div>
+
+                <div class="grammar-box" id="p1">
+                    <h3>Pattern 1: Articles + Case (THE most common!)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 You choose between der/die/das, ein/eine/einen, kein/keine. The answer depends on CASE.</p>
+                    <div class="trick">
+                        <strong>What triggers the case:</strong>
+                        <ul>
+                            <li><span style="color:#4ecdc4; font-weight:bold;">DATIV</span> → after: <strong>mit, bei, zu, von, seit, nach, aus</strong><br><span style="color:#ff8c00; font-size:0.8rem;">🇧🇩 এগুলোর পর সবসময় Dativ (mir/dir/dem/der)</span></li>
+                            <li><span style="color:#ffd700; font-weight:bold;">AKKUSATIV</span> → after: <strong>für, ohne, um, durch, gegen</strong><br><span style="color:#ff8c00; font-size:0.8rem;">🇧🇩 এগুলোর পর সবসময় Akkusativ (mich/dich/den/die)</span></li>
+                            <li><span style="color:#ff8c00; font-weight:bold;">BOTH</span> → after: <strong>in, an, auf</strong> — Dativ (where?) or Akkusativ (where to?)<br><span style="color:#ff8c00; font-size:0.8rem;">🇧🇩 কোথায় আছি? = Dativ | কোথায় যাচ্ছি? = Akkusativ</span></li>
+                        </ul>
+                    </div>
+                    <div class="trick">
+                        <strong>Example:</strong>
+                        <p>"Ich möchte mich bei ____ Nachbarin bedanken."<br>
+                        a) meine &nbsp; b) meiner &nbsp; c) meinem<br>
+                        → <strong>b) meiner</strong> — "bei" takes Dativ, "Nachbarin" is feminine → meiner</p>
+                    </div>
+                    <div class="hint-box">
+                        <h4>🎯 Shortcut:</h4>
+                        <p>After <strong>einen/einem/einer/eines</strong>, the adjective ending is ALMOST ALWAYS <strong>-en</strong>. This one rule covers huge numbers of cases!</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p2">Pattern 2: Time & Place Prepositions</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 These show up CONSTANTLY because telc texts describe events, plans, schedules.</p>
+                    <table>
+                        <tr><th>Preposition</th><th>Use</th><th>Example</th></tr>
+                        <tr><td><strong>seit</strong> + Dat</td><td>duration, STILL ongoing</td><td>seit zwei Jahren</td></tr>
+                        <tr><td><strong>vor</strong> + Dat</td><td>ago, FINISHED</td><td>vor einem Monat</td></tr>
+                        <tr><td><strong>in</strong> + Dat</td><td>in (future duration)</td><td>in drei Wochen</td></tr>
+                        <tr><td><strong>am</strong></td><td>days & dates</td><td>am Montag, am 5. Mai</td></tr>
+                        <tr><td><strong>im</strong></td><td>months & seasons</td><td>im Januar, im Sommer</td></tr>
+                        <tr><td><strong>um</strong></td><td>exact clock time</td><td>um 8 Uhr</td></tr>
+                        <tr><td><strong>von...bis</strong></td><td>time range (hours)</td><td>von 9 bis 17 Uhr</td></tr>
+                        <tr><td><strong>vom...bis zum</strong></td><td>date range</td><td>vom 1. bis zum 14. Sept.</td></tr>
+                        <tr><td><strong>ab</strong></td><td>from (a point onwards)</td><td>ab 16 Uhr</td></tr>
+                    </table>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 The seit vs. vor trap (appears in EVERY exam):</h4>
+                        <p><strong>seit</strong> = started in past, STILL true now: "Ich wohne seit 3 Jahren hier" (still living here)<br>
+                        <strong>vor</strong> = completed in the past: "Ich bin vor 3 Jahren umgezogen" (move is done)<br><br>
+                        <span style="color:#ff8c00">🇧🇩 seit = এখনো চলছে ("৩ বছর ধরে এখানে থাকি") | vor = শেষ হয়ে গেছে ("৩ বছর আগে চলে এসেছি")</span></p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p3">Pattern 3: Verb Forms – Perfekt, Präteritum, Modals</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 They test: do you know the right tense and the right form?</p>
+                    <div class="trick">
+                        <strong>haben vs. sein in Perfekt:</strong>
+                        <p>Most verbs use <strong>haben</strong>. But MOVEMENT & CHANGE verbs use <strong>sein</strong>:<br>
+                        <em>gehen, fahren, fliegen, kommen, laufen, reisen, umziehen, aufstehen, einschlafen, werden, bleiben, passieren, sterben</em><br><br>
+                        "Wir <strong>sind</strong> nach Spanien gefahren." (NOT haben!)<br>
+                        "Ich <strong>habe</strong> ein Buch gelesen." (no movement)</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Modal verbs in past (Präteritum = more common in writing):</strong>
+                        <p>konnte, musste, durfte, sollte, wollte, mochte<br>
+                        "Ich <strong>konnte</strong> leider nicht kommen."</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Konjunktiv II (polite requests — appears in EVERY formal email!):</strong>
+                        <p><strong>würde, könnte, hätte, wäre, müsste, dürfte</strong><br>
+                        "Könnten Sie mir bitte...?" / "Ich würde gern..." / "Es wäre schön, wenn..."<br><br>
+                        🎯 If text starts with "Sehr geehrte..." → expect Konjunktiv II for requests!</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p4">Pattern 4: Connectors & Word Order (THE trick that solves 3-4 gaps)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 Just look at WHERE THE VERB IS. That's your answer.</p>
+                    <div class="trick">
+                        <strong>Group A — Verb stays normal (position 2):</strong>
+                        <p><strong>und, aber, oder, denn, sondern</strong><br>
+                        "Ich komme nicht, <strong>denn</strong> ich <u>bin</u> krank."</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Group B — Verb jumps to position 1 (inverted):</strong>
+                        <p><strong>deshalb, trotzdem, dann, danach, deswegen, außerdem</strong><br>
+                        "Ich bin krank. <strong>Deshalb</strong> <u>bleibe</u> ich zu Hause."</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Group C — Verb goes to the END (Nebensatz):</strong>
+                        <p><strong>weil, dass, ob, wenn, als, obwohl, bevor, nachdem, damit, bis, sobald, sodass, falls</strong><br>
+                        "Ich bleibe zu Hause, <strong>weil</strong> ich krank <u>bin</u>."</p>
+                    </div>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 THE TRICK: Look at where the verb IS, then pick the connector!</h4>
+                        <p>• Verb at the END of the clause → you need Group C<br>
+                        • Verb immediately after the gap → you need Group B<br>
+                        • Verb in normal position 2 → you need Group A<br><br>
+                        This one trick alone solves 3-4 gaps in every exam!<br><br>
+                        <span style="color:#ff8c00">🇧🇩 Verb শেষে → Group C (weil/dass/ob/wenn)। Verb gap-এর ঠিক পরে → Group B (deshalb/trotzdem)। Verb স্বাভাবিক → Group A (und/aber/denn)। এই একটা trick-এ প্রতি exam-এ ৩-৪টা gap solve হয়!</span></p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p5">Pattern 5: Pronouns – Akkusativ vs. Dativ</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 Check: Is there a Dativ verb or a Dativ preposition? → Dativ. Otherwise → Akkusativ.</p>
+                    <table>
+                        <tr><th>Person</th><th>Akkusativ</th><th>Dativ</th></tr>
+                        <tr><td>ich</td><td>mich</td><td>mir</td></tr>
+                        <tr><td>du</td><td>dich</td><td>dir</td></tr>
+                        <tr><td>er/es</td><td>ihn/es</td><td>ihm</td></tr>
+                        <tr><td>sie</td><td>sie</td><td>ihr</td></tr>
+                        <tr><td>wir</td><td>uns</td><td>uns</td></tr>
+                        <tr><td>sie/Sie</td><td>sie/Sie</td><td>ihnen/Ihnen</td></tr>
+                    </table>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 Memorize these DATIV verbs (always Dativ!):</h4>
+                        <p><strong>helfen, gefallen, gehören, danken, gratulieren, schmecken, passen, Bescheid geben/sagen</strong><br>
+                        "Das gefällt <strong>mir</strong>." / "Kannst du <strong>mir</strong> helfen?" / "Gib <strong>mir</strong> Bescheid."<br><br>
+                        After <strong>mit, bei, zu, von, seit, nach, aus</strong> → ALWAYS Dativ:<br>
+                        "mit <strong>dir</strong>" / "bei <strong>ihm</strong>" / "zu <strong>mir</strong>"<br><br>
+                        <span style="color:#ff8c00">🇧🇩 এই verb গুলো সবসময় Dativ নেয়: helfen (সাহায্য), gefallen (পছন্দ), gehören (মালিকানা)। আর mit/bei/zu-এর পর সবসময় Dativ!</span></p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p6">Pattern 6: Adjective Endings</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 One shortcut covers 80% of cases!</p>
+                    <div class="trick">
+                        <strong>THE SHORTCUT:</strong>
+                        <p>After <strong>einen/einem/einer/eines</strong> → adjective ending is almost ALWAYS <strong>-en</strong><br>
+                        "einen interessant<strong>en</strong> Artikel" / "einem nett<strong>en</strong> Mann" / "einer gut<strong>en</strong> Idee"</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Common exam phrases:</strong>
+                        <p>• "mit freundlich<strong>en</strong> Grüßen" (Dativ plural)<br>
+                        • "im nächst<strong>en</strong> Jahr" (Dativ neutral/masc)<br>
+                        • "einen neu<strong>en</strong> Job" (Akk maskulin)</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p7">Pattern 7: Negation – kein vs. nicht (rare in exam!)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 Rarely tested directly in Sprachbausteine, but good to know:</p>
+                    <div class="trick">
+                        <strong>kein = replaces "ein" (negates NOUNS)</strong>
+                        <p>"Ich habe <strong>ein</strong> Auto" → "Ich habe <strong>kein</strong> Auto."<br>
+                        "Wir haben <strong>keine</strong> Zimmer mehr frei."</p>
+                    </div>
+                    <div class="trick">
+                        <strong>nicht = negates everything else (verbs, adjectives, adverbs)</strong>
+                        <p>"Ich komme <strong>nicht</strong>." / "Das ist <strong>nicht</strong> richtig."</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p8">Pattern 8: Degree Forms – als/wie + Superlatives</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 Tested in 3 out of 4 Modeltests! Three simple rules:</p>
+                    <div class="trick">
+                        <strong>Rule 1: Comparative (-er) → always ALS</strong>
+                        <p>"Berlin ist größ<strong>er ALS</strong> München." / "weniger ALS vorher"<br>
+                        🎯 See -er form? → answer is <strong>als</strong>, NEVER "wie"!</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Rule 2: so...WIE = equal (Grundform only!)</strong>
+                        <p>"nicht so <strong>schlimm</strong>, <strong>wie</strong> erwartet" (NOT schlimmer!)<br>
+                        After "so...wie" → always GRUNDFORM (no -er, no -sten)</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Rule 3: am ___STEN = Superlative</strong>
+                        <p>"Geld ist nicht am <strong>wichtigsten</strong>" / "am <strong>besten</strong>" / "am <strong>liebsten</strong>"<br>
+                        🎯 See "am ___" with choices like wichtig/wichtiger/wichtigsten → pick the -sten one!</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Rule 4: ___ + genug = always Grundform</strong>
+                        <p>"<strong>groß</strong> genug" (NOT größer genug!)</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p9">Pattern 9: Konjunktiv II – Polite Requests</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 Appears in EVERY formal email/letter!</p>
+                    <div class="trick">
+                        <strong>Key forms to recognize:</strong>
+                        <p><strong>würde, könnte, hätte, wäre, müsste, dürfte</strong><br><br>
+                        "Könnten Sie mir bitte die Unterlagen schicken?"<br>
+                        "Ich würde gern einen Termin vereinbaren."<br>
+                        "Es wäre schön, wenn Sie..."</p>
+                    </div>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 Exam Trap: können vs. könnten vs. konnten</h4>
+                        <p>• <strong>können</strong> = can (present, neutral)<br>
+                        • <strong>könnten</strong> = could (polite request) ← CORRECT in formal emails!<br>
+                        • <strong>konnten</strong> = could (past tense, not polite)<br><br>
+                        Formal email + request? → Always <strong>könnten</strong>!</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p10">Pattern 10: Infinitiv mit "zu" (Trennbare Verben trap!)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 After these words → ALWAYS "zu + Infinitiv":</p>
+                    <div class="trick">
+                        <strong>Trigger words:</strong>
+                        <p><strong>Lust haben, versuchen, anfangen, aufhören, vergessen, planen, hoffen, es ist möglich/wichtig/schön</strong></p>
+                    </div>
+                    <div class="trick">
+                        <strong>Normal verb → zu + verb:</strong>
+                        <p>"Ich habe vergessen, das Fenster <strong>zu schließen</strong>."</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Trennbare verb → prefix + zu + verb (ONE word!):</strong>
+                        <p>• mit|kommen → <strong>mitzukommen</strong><br>
+                        • auf|stehen → <strong>aufzustehen</strong><br>
+                        • mit|bringen → <strong>mitzubringen</strong><br>
+                        • an|fangen → <strong>anzufangen</strong></p>
+                    </div>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 THE TRAP (appears every exam!):</h4>
+                        <p>Options: a) mitgekommen &nbsp; b) mitkommen &nbsp; c) mitzukommen<br>
+                        If you see "Lust / versuchen / möglich / anfangen" before the gap → answer is ALWAYS the <strong>"...zu..."</strong> version (c)!<br><br>
+                        Also: <strong>um...zu</strong> = "in order to" (same subject): "Ich lerne, <strong>um</strong> die Prüfung <strong>zu</strong> bestehen."<br>
+                        <strong>damit</strong> = "so that" (different subjects): "Ich lerne, <strong>damit</strong> mein Chef zufrieden ist."<br><br>
+                        ⚠️ <strong>DAMIT has 2 meanings!</strong> "damit" = so that (connector, verb at end) OR "damit" = with that (pronominal adverb, da+mit). Context tells you which!<br><br>
+                        <span style="color:#ff8c00">🇧🇩 Lust/versuchen/möglich দেখলেই "zu" version বাছো! um...zu = নিজে করতে (একই subject)। damit = অন্যে করবে (আলাদা subject)। সতর্ক: damit দুই অর্থে আসে — "যাতে" (connector) বা "সেটা দিয়ে" (da+mit)!</span></p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p11">Pattern 11: Relative Clauses (der/die/das after a comma)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 2 steps: 1) Find the noun → gives you gender. 2) Check role in clause → gives you case.</p>
+                    <table>
+                        <tr><th></th><th>Nominativ</th><th>Akkusativ</th><th>Dativ</th></tr>
+                        <tr><td>maskulin (der)</td><td>der</td><td>den</td><td>dem</td></tr>
+                        <tr><td>feminin (die)</td><td>die</td><td>die</td><td>der</td></tr>
+                        <tr><td>neutral (das)</td><td>das</td><td>das</td><td>dem</td></tr>
+                        <tr><td>Plural (die)</td><td>die</td><td>die</td><td>denen</td></tr>
+                    </table>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 Quick method:</h4>
+                        <p>1. Find the noun before the comma → that's the gender<br>
+                        2. Does the relative clause already have a subject (ich/du/er/man...)?<br>
+                        • NO subject → you need <strong>Nominativ</strong> (der/die/das)<br>
+                        • YES has subject → you need <strong>Akkusativ</strong> (den/die/das) or Dativ<br><br>
+                        "Das Angebot, ___ günstig ist" → no subject → <strong>das</strong> (Nom)<br>
+                        "Die Firma, bei ___ ich arbeite" → "ich" is subject, "bei" = Dativ → <strong>der</strong> (Dat fem)<br><br>
+                        <span style="color:#ff8c00">🇧🇩 ১. কমার আগের noun-এর gender দেখো। ২. Relative clause-এ subject আছে কি? নেই → Nominativ (der/die/das)। আছে → Akkusativ বা Dativ।</span></p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" style="border: 2px solid #ffd700;">
+                    <h3>⚡ TEIL 2: The 4 Extra Patterns</h3>
+                    <p style="color: #ccc;">Teil 2 LOOKS like vocabulary but the right answer almost always depends on grammar logic. Know these 4 and you'll pick the right word from the bank.</p>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p12">Pattern 12: Verb + Preposition Combos (BACKBONE of Teil 2)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 Learn these as ONE UNIT. The preposition is part of the verb!</p>
+                    <table>
+                        <tr><th>Combo</th><th>Example</th><th>dar- form</th></tr>
+                        <tr><td>warten <strong>auf</strong></td><td>Ich warte auf Ihre Antwort.</td><td>darauf</td></tr>
+                        <tr><td>sich freuen <strong>auf</strong></td><td>Ich freue mich auf das Treffen.</td><td>darauf</td></tr>
+                        <tr><td>sich freuen <strong>über</strong></td><td>Ich freue mich über das Geschenk.</td><td>darüber</td></tr>
+                        <tr><td>sich interessieren <strong>für</strong></td><td>Ich interessiere mich für den Kurs.</td><td>dafür</td></tr>
+                        <tr><td>teilnehmen <strong>an</strong></td><td>Ich möchte am Kurs teilnehmen.</td><td>daran</td></tr>
+                        <tr><td>denken <strong>an</strong></td><td>Denk bitte an den Termin.</td><td>daran</td></tr>
+                        <tr><td>sprechen <strong>über</strong></td><td>Wir sprechen über das Problem.</td><td>darüber</td></tr>
+                        <tr><td>informieren <strong>über</strong></td><td>Informieren Sie mich über...</td><td>darüber</td></tr>
+                        <tr><td>Angst haben <strong>vor</strong></td><td>Ich habe Angst vor der Prüfung.</td><td>davor</td></tr>
+                        <tr><td>sich kümmern <strong>um</strong></td><td>Ich kümmere mich um alles.</td><td>darum</td></tr>
+                        <tr><td>bitten <strong>um</strong></td><td>Ich bitte um Ihre Hilfe.</td><td>darum</td></tr>
+                        <tr><td>sich entschuldigen <strong>für</strong></td><td>Ich entschuldige mich für...</td><td>dafür</td></tr>
+                    </table>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 How "dar+preposition" works:</h4>
+                        <p>When referring back to a THING (not a person), German uses dar+preposition:<br>
+                        "Auf Ihre Antwort freue ich mich" = "Dar<strong>auf</strong> freue ich mich"<br>
+                        "Über das Angebot möchte ich sprechen" = "Dar<strong>über</strong> möchte ich sprechen"<br><br>
+                        In Teil 2 word bank: if you see DARÜBER, DAFÜR, DARAUF → find the verb that needs that preposition!<br><br>
+                        <span style="color:#ff8c00">🇧🇩 কোনো বস্তু (person না) বোঝাতে dar+preposition ব্যবহার হয়। Word bank-এ DARÜBER/DAFÜR/DARAUF দেখলে ভাবো — কোন verb-এর সাথে ওই preposition যায়?</span></p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p13">Pattern 13: Fixed Email/Letter Phrases (= FREE points)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 Teil 2 is ALWAYS a letter/email. These stock phrases give you 3-4 answers for free if you know them!</p>
+                    <table>
+                        <tr><th>Where</th><th>Phrase</th></tr>
+                        <tr><td>Opening</td><td>vielen Dank <strong>für</strong> Ihre Nachricht / Ihren Brief</td></tr>
+                        <tr><td>Opening</td><td>ich habe <strong>auf</strong> Ihrer Website gelesen, dass...</td></tr>
+                        <tr><td>Request</td><td>ich möchte Sie <strong>bitten</strong>... / könnten Sie <strong>bitte</strong>...</td></tr>
+                        <tr><td>Additional info</td><td>ich möchte <strong>außerdem</strong> wissen...</td></tr>
+                        <tr><td>Time range</td><td><strong>vom</strong> 1. September <strong>bis zum</strong> 14. September</td></tr>
+                        <tr><td>Alternatives</td><td>... buchen, <strong>oder</strong> ist es inklusive?</td></tr>
+                        <tr><td>Closing (formal)</td><td><strong>über</strong> eine Antwort würde ich mich freuen</td></tr>
+                        <tr><td>Closing (formal)</td><td><strong>auf</strong> Ihre Antwort freue ich mich</td></tr>
+                        <tr><td>Closing (formal)</td><td><strong>mit</strong> freundlichen Grüßen</td></tr>
+                        <tr><td>Closing (informal)</td><td>viele / liebe <strong>Grüße</strong></td></tr>
+                    </table>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 From your Modeltest (Hotel Seeblick letter):</h4>
+                        <p>"<strong>AUF</strong> Ihre Antwort freue ich mich" → AUF is the answer (sich freuen auf)<br>
+                        "Informieren Sie uns auch <strong>DARÜBER</strong>" → informieren über → darüber<br>
+                        "<strong>VOM</strong> 1. September bis zum 14." → date range = vom...bis zum</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p14">Pattern 14: Logical Connectors (Sequence & Contrast)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 Read the sentence BEFORE and AFTER the gap. The logic tells you which connector fits.</p>
+                    <div class="trick">
+                        <strong>Choose based on LOGIC:</strong>
+                        <ul>
+                            <li>Result/consequence → <strong>deshalb, deswegen, daher</strong></li>
+                            <li>Contradiction/contrast → <strong>trotzdem, allerdings, aber</strong></li>
+                            <li>Addition (more info) → <strong>außerdem, auch</strong></li>
+                            <li>Alternative → <strong>oder</strong></li>
+                            <li>Sequence → <strong>zuerst, dann, danach, schließlich</strong></li>
+                        </ul>
+                    </div>
+                    <div class="trick">
+                        <strong>Example from your exam:</strong>
+                        <p>"Wir würden <strong>ABER</strong> gern zwei Wochen bleiben" → contrast (7 nights is good, BUT we want 2 weeks)<br>
+                        "Ich möchte <strong>AUßERDEM</strong> wissen" → addition (another question on top)</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" >
+                    <h3 id="p15">Pattern 15: Formal vs. Informal Register</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 The text is EITHER formal OR informal. Everything must match. Look at the greeting!</p>
+                    <table>
+                        <tr><th>Formal (Sie)</th><th>Informal (du)</th></tr>
+                        <tr><td>Sehr geehrte Frau Müller</td><td>Liebe Anna</td></tr>
+                        <tr><td>könnten <strong>Sie</strong></td><td>kannst <strong>du</strong></td></tr>
+                        <tr><td><strong>Ihnen</strong> / <strong>Ihrer</strong></td><td><strong>dir</strong> / <strong>deiner</strong></td></tr>
+                        <tr><td><strong>Ihr</strong> Angebot</td><td><strong>dein</strong> Angebot</td></tr>
+                        <tr><td>Mit freundlichen Grüßen</td><td>Viele/Liebe Grüße</td></tr>
+                    </table>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 Fastest check:</h4>
+                        <p>Look at the greeting. That tells you EVERYTHING:<br>
+                        • "Sehr geehrte..." → ALL pronouns must be Sie/Ihnen/Ihr (capital!)<br>
+                        • "Liebe/Lieber..." → ALL pronouns must be du/dir/dein<br><br>
+                        From your exam: "Sehr geehrte Damen und Herren" → "<strong>IHR</strong> Angebot" (not "dein"!)</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box">
+                    <h3 id="p16">Pattern 16: Common Adverbs & Particles (Teil 2!)</h3>
+                    <p style="color: #4ecdc4; margin-bottom: 12px;">💡 2-3 gaps in every Teil 2 are simple adverbs. They test MEANING, not grammar!</p>
+                    <div class="trick">
+                        <strong>When to suspect an adverb:</strong>
+                        <p>If the gap doesn't need a grammar word (no connector, no preposition, no pronoun) → it's a meaning-adverb.</p>
+                    </div>
+                    <table>
+                        <tr><th>Word</th><th>Meaning</th><th>From your exams</th></tr>
+                        <tr><td><strong>da / dort</strong></td><td>there</td><td>"DORT steht, dass..." / "ich dich DA besucht habe"</td></tr>
+                        <tr><td><strong>schon</strong></td><td>already</td><td>"das war SCHON immer mein Traum"</td></tr>
+                        <tr><td><strong>gern</strong></td><td>gladly</td><td>"Ich würde GERN wieder fahren"</td></tr>
+                        <tr><td><strong>nur</strong></td><td>only</td><td>"geht das NUR, wenn..."</td></tr>
+                        <tr><td><strong>auch</strong></td><td>also</td><td>"Können Sie Sachen AUCH abholen?"</td></tr>
+                        <tr><td><strong>ganz</strong></td><td>really/very</td><td>"Es wäre GANZ toll"</td></tr>
+                    </table>
+                    <div class="hint-box" style="margin-top: 12px;">
+                        <h4>🎯 Teil 2 Trick:</h4>
+                        <p>Fill grammar gaps first (prepositions, connectors, pronouns). Then the leftover simple adverbs fit the remaining "meaning" gaps easily!</p>
+                    </div>
+                </div>
+
+                <div class="grammar-box" style="border: 2px solid #ff8c00;">
+                    <h3 id="bonus">🔥 BONUS: The Confusing Pairs They LOVE to Test</h3>
+                    <p style="color: #ccc; margin-bottom: 15px;">These pairs trip up most students. Know the difference = easy points.</p>
+                    <table>
+                        <tr><th>Pair</th><th>Rule</th></tr>
+                        <tr><td><strong>seit</strong> vs. <strong>vor</strong></td><td>seit = still happening NOW | vor = finished in past</td></tr>
+                        <tr><td><strong>wenn</strong> vs. <strong>als</strong></td><td>wenn = repeated/future/if | als = ONE time in PAST</td></tr>
+                        <tr><td><strong>weil</strong> vs. <strong>denn</strong></td><td>both = because | weil = verb END | denn = verb normal</td></tr>
+                        <tr><td><strong>trotzdem</strong> vs. <strong>obwohl</strong></td><td>both = although | trotzdem = verb next | obwohl = verb END</td></tr>
+                        <tr><td><strong>um...zu</strong> vs. <strong>damit</strong></td><td>both = in order to | um...zu = same subject | damit = different subjects</td></tr>
+                        <tr><td><strong>als</strong> vs. <strong>wie</strong></td><td>als = after comparative (-er) | wie = after "so" (equal)</td></tr>
+                        <tr><td><strong>noch</strong> vs. <strong>schon</strong></td><td>noch = still | schon = already</td></tr>
+                        <tr><td><strong>kein</strong> vs. <strong>nicht</strong></td><td>kein = negates nouns (replaces ein) | nicht = negates verbs/adj</td></tr>
+                    </table>
+                </div>
+
+                <div class="grammar-box" style="border: 2px solid #4ecdc4;">
+                    <h3 id="method">🏆 THE ULTIMATE 5-STEP METHOD (Use on Exam Day)</h3>
+                    <div class="trick">
+                        <strong>Step 1: Read the whole text (30 sec)</strong>
+                        <p>What's it about? Formal or informal? Who writes to whom?</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Step 2: For each gap — read the FULL sentence</strong>
+                        <p>Not just the gap. Read from comma to comma or period to period.</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Step 3: Identify the CATEGORY</strong>
+                        <p>Is this testing a preposition? connector? pronoun? verb form? Naming it narrows your thinking immediately.</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Step 4: Use the VERB POSITION trick</strong>
+                        <p>Where is the verb? → That tells you which connector/conjunction fits.</p>
+                    </div>
+                    <div class="trick">
+                        <strong>Step 5: Eliminate, then choose</strong>
+                        <p>Cross out the clearly wrong option. Now you have 50/50. Trust your gut. NEVER leave it empty!</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Exercise Screen -->
+        <section id="exercise" class="screen">
+            <div id="exercise-content"></div>
+        </section>
+
+        <!-- Results Screen -->
+        <section id="results" class="screen">
+            <button class="back-btn" onclick="showScreen('menu')">← Zurück zum Menü</button>
+            <div id="results-content"></div>
+        </section>
+    </div>
+
+    <script src="exercises.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
