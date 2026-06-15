@@ -195,6 +195,21 @@ function renderTeil1() {
 function selectGapTeil1(num) {
     activeGap = num;
     renderTeil1();
+    // Fix popup position if cut off on sides
+    setTimeout(() => {
+        const popup = document.querySelector('.gap-popup');
+        if (popup) {
+            const rect = popup.getBoundingClientRect();
+            if (rect.left < 8) {
+                popup.style.left = '0';
+                popup.style.transform = 'translateX(0)';
+            } else if (rect.right > window.innerWidth - 8) {
+                popup.style.left = 'auto';
+                popup.style.right = '0';
+                popup.style.transform = 'translateX(0)';
+            }
+        }
+    }, 10);
 }
 
 function selectAnswerTeil1(gapNum, letter, text) {
