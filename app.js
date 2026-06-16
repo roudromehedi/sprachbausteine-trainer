@@ -23,14 +23,39 @@ const patternInfo = {
 };
 
 function formatExplanation(explanation) {
-    // Make the pattern name clickable
-    const patternMatch = explanation.match(/📘 (Pattern \d+):?\s*([^—]+)—/);
+    // Parse the explanation into structured parts for better readability
+    const patternMatch = explanation.match(/📘 (Pattern \d+):?\s*([^—]+)—\s*(.*)/);
     if (patternMatch) {
         const patternKey = patternMatch[1];
         const patternName = patternMatch[2].trim();
-        const restOfExplanation = explanation.replace(/📘 Pattern \d+:?\s*[^—]+—\s*/, '');
+        const body = patternMatch[3];
         const info = patternInfo[patternKey] || '';
-        return `<span class="pattern-link" onclick="this.nextElementSibling.classList.toggle('show')">📘 ${patternKey}: ${patternName}</span><div class="pattern-popup">${info}</div><span class="explanation-text">${restOfExplanation}</span>`;
+
+        // Split English and Bangla parts
+        const banglaSplit = body.split(/🇧🇩\s*/);
+        const englishPart = (banglaSplit[0] || '').trim();
+        const banglaPart = (banglaSplit[1] || '').trim();
+
+        // Split English into main reason (first sentence) and supporting detail
+        const sentences = englishPart.split(/(?<=\.)\s+/);
+        let reasonHtml = '';
+        let exampleHtml = '';
+        
+        if (sentences.length > 1) {
+            reasonHtml = sentences[0];
+            exampleHtml = sentences.slice(1).join(' ');
+        } else {
+            reasonHtml = englishPart;
+        }
+
+        return `
+            <div class="explanation-structured">
+                <span class="pattern-link" onclick="this.nextElementSibling.classList.toggle('show')">📘 ${patternKey}: ${patternName}</span>
+                <div class="pattern-popup">${info}</div>
+                <div class="explanation-reason">💡 ${reasonHtml}</div>
+                ${exampleHtml ? `<div class="explanation-example">📝 ${exampleHtml}</div>` : ''}
+                ${banglaPart ? `<div class="explanation-bangla">🇧🇩 ${banglaPart}</div>` : ''}
+            </div>`;
     }
     return explanation;
 }
@@ -318,7 +343,9 @@ function checkAnswers() {
             const correctAnswer = correctOption ? correctOption.substring(3).trim() : '';
             const isCorrect = userAnswer.trim() === correctAnswer;
             if (isCorrect) correct++;
-            results.push({ number: gap.number, isCorrect, userAnswer, correctAnswer, explanation: gap.explanation });
+            // Include all options for the result display
+            const wrongOptions = gap.options.filter(o => !o.startsWith(gap.correct + ')'));
+            results.push({ number: gap.number, isCorrect, userAnswer, correctAnswer, explanation: gap.explanation, options: gap.options, correctLetter: gap.correct, wrongOptions });
         });
     } else {
         const gapNumbers = Object.keys(exercise.correct).map(Number).sort((a, b) => a - b);
@@ -327,11 +354,88 @@ function checkAnswers() {
             const correctAnswer = exercise.correct[i];
             const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
             if (isCorrect) correct++;
-            results.push({ number: i, isCorrect, userAnswer, correctAnswer, explanation: exercise.explanations[i] });
+            results.push({ number: i, isCorrect, userAnswer, correctAnswer, explanation: exercise.explanations[i], options: null });
         });
     }
     
     showResults(correct, results.length, results);
+}
+
+// Generate "why wrong" explanation for incorrect options
+function getWhyWrong(gapNumber, letter, text) {
+    const exercise = currentExerciseType === 'teil1' 
+        ? teil1Exercises[currentExerciseIndex] 
+        : teil2Exercises[currentExerciseIndex];
+    
+    if (currentExerciseType !== 'teil1') return '';
+    
+    const gap = exercise.gaps.find(g => g.number == gapNumber);
+    if (!gap || !gap.whyWrong) {
+        // Generate a generic reason based on the explanation pattern
+        return generateGenericWhyWrong(gap, letter, text);
+    }
+    return gap.whyWrong[letter] || '';
+}
+
+function generateGenericWhyWrong(gap, letter, text) {
+    if (!gap) return 'Does not fit grammatically in this context.';
+    
+    const explanation = gap.explanation || '';
+    
+    // Extract pattern-based generic reasons
+    if (explanation.includes('Pattern 3') && explanation.includes('Perfekt')) {
+        if (text.includes('sehe') || text.includes('schreib')) return 'Present tense — but the sentence needs past tense (Perfekt).';
+        if (text.includes('sehen') || text.includes('schreiben') || text.includes('kommen')) return 'Infinitive form — but here Partizip II (past participle) is needed after "haben/sein".';
+        if (text.includes('geschrieben') || text.includes('gesehen')) return 'Partizip II — this would need "haben" before it for Perfekt, but the sentence has a modal verb which needs Infinitive.';
+    }
+    if (explanation.includes('Pattern 3') && explanation.includes('modal') || explanation.includes('Modal')) {
+        if (text.endsWith('en') && !text.includes('zu')) return 'Infinitive is correct after modals — but check: is there really a modal verb here?';
+        if (text.startsWith('ge')) return 'Partizip II (past participle) — but after a modal verb, you need the Infinitive, not Partizip II.';
+    }
+    if (explanation.includes('Pattern 6') || explanation.includes('Adjective')) {
+        return `Wrong adjective ending for this case/gender combination.`;
+    }
+    if (explanation.includes('Pattern 1') || explanation.includes('Case')) {
+        return `Wrong case form — check which preposition/verb determines the case here.`;
+    }
+    if (explanation.includes('Pattern 4') || explanation.includes('Connector')) {
+        if (text === 'weil' || text === 'dass' || text === 'ob' || text === 'obwohl' || text === 'wenn') 
+            return 'Subordinating conjunction — sends verb to end. But check verb position in this sentence!';
+        if (text === 'deshalb' || text === 'trotzdem' || text === 'außerdem')
+            return 'Sentence adverb — causes inversion (verb right after). But check verb position in this sentence!';
+        if (text === 'und' || text === 'aber' || text === 'oder' || text === 'denn')
+            return 'Coordinating conjunction — keeps normal word order. But check verb position and meaning!';
+    }
+    if (explanation.includes('Pattern 5') || explanation.includes('Pronoun')) {
+        if (text === 'mich' || text === 'dich') return 'Akkusativ pronoun — but this position requires Dativ (after Dativ verb/preposition).';
+        if (text === 'mir' || text === 'dir') return 'Dativ pronoun — but this position requires Akkusativ.';
+        if (text === 'ich' || text === 'du') return 'Nominativ (subject) — but this position needs an object pronoun (Akk or Dat).';
+    }
+    if (explanation.includes('Pattern 8') || explanation.includes('Degree')) {
+        if (text === 'als') return '"Als" is used with comparatives (-er form), but there\'s no comparative here.';
+        if (text === 'wie') return '"Wie" is used with "so...wie" (equality), but this is a comparative.';
+        if (text.endsWith('er')) return 'Comparative form — but the sentence needs Grundform (with "so...wie" or "genug") or Superlative (with "am").';
+        if (text.endsWith('sten') || text.endsWith('ste')) return 'Superlative — but there\'s no "am" before this gap to trigger superlative.';
+    }
+    if (explanation.includes('Pattern 10') || explanation.includes('Infinitiv')) {
+        if (text.startsWith('mit') && text.includes('ge')) return 'Partizip II — looks like past participle, but "zu + Infinitiv" is needed here.';
+        if (text.endsWith('kommen') || text.endsWith('bringen')) return 'Plain infinitive — but after "Lust haben/versuchen/möglich" you need "zu + Infinitiv". For separable verbs: prefix+zu+verb as one word.';
+    }
+    if (explanation.includes('Pattern 11') || explanation.includes('Relative')) {
+        return 'Wrong gender or case for the relative pronoun. Check: 1) noun gender, 2) role in the relative clause.';
+    }
+    if (explanation.includes('Pattern 12') || explanation.includes('Verb + Prep')) {
+        return 'Wrong preposition for this verb. Each verb has a fixed preposition — they must be memorized as a unit.';
+    }
+    if (explanation.includes('Pattern 2') || explanation.includes('Time')) {
+        if (text === 'seit') return '"Seit" = since/for (still ongoing). But this event is finished → use "vor" or another preposition.';
+        if (text === 'vor') return '"Vor" = ago (finished). But this is still ongoing → use "seit".';
+    }
+    if (explanation.includes('Pattern 9') || explanation.includes('Konjunktiv')) {
+        return 'Wrong verb mood/tense. Formal requests need Konjunktiv II (würde/könnte/hätte/wäre).';
+    }
+    
+    return 'Does not fit grammatically or logically in this context.';
 }
 
 function showResults(correct, total, results) {
@@ -398,6 +502,20 @@ function showResults(correct, total, results) {
                     <span class="correct-answer">${r.correctAnswer}</span>
                     <div class="result-sentence">${getSentenceForGap(exercise.text, r.number)}</div>
                     <div class="result-explanation">${formatExplanation(r.explanation)}</div>
+                    ${r.options ? `<div class="result-wrong-options">
+                        <span class="wrong-options-label" onclick="this.parentElement.classList.toggle('expanded')">🔍 Why are the other options wrong? ▸</span>
+                        <div class="wrong-options-content">
+                            ${r.options.map(opt => {
+                                const letter = opt.charAt(0);
+                                const text = opt.substring(3).trim();
+                                const isCorrectOpt = letter === r.correctLetter;
+                                return `<div class="wrong-option-item ${isCorrectOpt ? 'correct-opt' : 'wrong-opt'}">
+                                    <span class="opt-label">${isCorrectOpt ? '✅' : '❌'} ${opt}</span>
+                                    <span class="opt-reason">${isCorrectOpt ? '← Correct answer' : getWhyWrong(r.number, letter, text)}</span>
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    </div>` : ''}
                 </div>
             </div>
         `).join('')}
