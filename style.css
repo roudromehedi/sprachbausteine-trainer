@@ -629,50 +629,42 @@ td { color: #ddd; }
     display: inline-block;
 }
 .gap-popup {
-    position: absolute;
-    bottom: calc(100% + 8px);
+    position: fixed;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     background: #1a1a2e;
     border: 1px solid #4ecdc4;
-    border-radius: 12px;
-    padding: 10px;
+    border-radius: 10px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     z-index: 50;
-    min-width: 180px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    width: 220px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
     animation: popIn 0.15s ease;
-    /* Prevent cut-off on sides */
-    max-width: calc(100vw - 24px);
 }
 .gap-popup::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 8px solid transparent;
-    border-top-color: #4ecdc4;
+    display: none;
 }
 .gap-popup-label {
     color: #ffd700;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: bold;
     text-align: center;
+    padding: 2px 0;
 }
 .gap-popup-btn {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #fff;
-    padding: 11px 14px;
-    border-radius: 8px;
+    padding: 10px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     transition: all 0.15s;
     text-align: left;
-    min-height: 44px;
 }
 .gap-popup-btn:hover {
     background: rgba(78, 205, 196, 0.2);
@@ -685,23 +677,32 @@ td { color: #ddd; }
 }
 
 @keyframes popIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(4px); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 @media (max-width: 600px) {
     .gap-popup {
-        min-width: 160px;
-        padding: 8px;
+        width: 200px;
+        padding: 6px;
+        gap: 3px;
     }
     .gap-popup-btn {
-        padding: 10px 12px;
-        font-size: 0.9rem;
-        min-height: 42px;
+        padding: 9px 10px;
+        font-size: 0.88rem;
+    }
+    .gap-popup-label {
+        font-size: 0.75rem;
     }
 }
 
 /* Overlay behind popup for easy dismiss */
 .gap-popup-overlay {
-    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 49;
 }
